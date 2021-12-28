@@ -1,7 +1,13 @@
 # Neptune Apex Reverse Proxy Server
 
 This reverse proxy allows you to securely expose your Apex Controller JSON/XML endpoints to the
-Internet instead.
+Internet without allowing access to the UI.
+
+Features:
+
+* Fine grained controls which data endpoints to expose
+* Protect your controller from DoS and other attacks
+* IP access controls
 
 ## Trademarks
 
