@@ -1,0 +1,93 @@
+project_name: apex-proxy
+
+before:
+  hooks:
+    - go mod download
+
+builds:
+  - id: apex-proxy
+    ldflags:
+      - -s -w
+      - -X go.skymeyer.dev/app.Name={{.ProjectName}}
+      - -X go.skymeyer.dev/app.Version={{.Version}}
+      - -X go.skymeyer.dev/app.BuildCommit={{.Commit}}
+      - -X go.skymeyer.dev/app.BuildDate={{.CommitDate}}
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    goarm:
+      - 6
+      - 7
+
+archives:
+  - id: apex-proxy
+    builds:
+      - apex-proxy
+    replacements:
+      arm: arm32
+      all: universal
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+
+checksum:
+  name_template: 'checksums.txt'
+  algorithm: sha256
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-dev"
+
+release:
+  github:
+    owner: reefassistant
+    name: apex-proxy
+  prerelease: auto
+  name_template: "{{.ProjectName}} v{{.Version}}"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+
+gomod:
+  proxy: true
+  env:
+    - GOPROXY=https://proxy.golang.org,direct
+    - GOSUMDB=sum.golang.org
+
+universal_binaries:
+- id: apex-proxy
+  name_template: apex-proxy
+  replace: false
+
+brews:
+  - tap:
+      branch: main
+      owner: reefassistant
+      name: homebrew-tap
+    name: apex-proxy
+    description: Apex Proxy
+    skip_upload: auto
+    license: Apache-2.0
+    ids:
+      - apex-proxy
+    homepage:  https://reefassistant.com
+    commit_author:
+      name: skymeyer
+      email: 593516+skymeyer@users.noreply.github.com
+    install: |
+      bin.install "apex-proxy"
+    test: |
+      system "#{bin}/apex-proxy --help"
+    goarm: 7

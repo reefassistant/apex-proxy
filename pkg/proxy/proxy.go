@@ -7,6 +7,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 
+	"go.skymeyer.dev/app"
 	"go.uber.org/zap"
 
 	"go.reefassistant.com/apex-proxy/pkg/logger"
@@ -85,7 +86,7 @@ type Apex struct {
 func (a *Apex) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	log := logger.Context(r.Context())
-	w.Header().Set("server", "apex-proxy")
+	w.Header().Set("server", fmt.Sprintf("apex-proxy %s", app.Version))
 
 	// Derive source IP from reported remote address, no proxy support
 	source, _, err := net.SplitHostPort(r.RemoteAddr)

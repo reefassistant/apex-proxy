@@ -7,6 +7,7 @@ require (
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/spf13/cobra v1.3.0
 	github.com/stretchr/testify v1.7.0
+	go.skymeyer.dev/app v0.0.0-20220127090311-deda473e9a47
 	go.uber.org/zap v1.19.1
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 )

@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
+	"go.skymeyer.dev/app"
 	"go.uber.org/zap"
 
 	"go.reefassistant.com/apex-proxy/pkg/logger"
@@ -31,7 +32,7 @@ var (
 func New() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "apex-proxy",
-		Short:   "Apex Proxy",
+		Short:   fmt.Sprintf("Apex Proxy %s", app.Version),
 		PreRunE: preRunApexProxy,
 		RunE:    runApexProxy,
 	}
@@ -44,6 +45,8 @@ func New() *cobra.Command {
 	cmd.Flags().StringVar(&logFile, "log-file", logFile, "Write logs to file")
 	cmd.Flags().StringVar(&logLevel, "log-level", logLevel, fmt.Sprintf("Log level (%s|%s|%s|%s)",
 		logger.LEVEL_ERROR, logger.LEVEL_WARNING, logger.LEVEL_INFO, logger.LEVEL_DEBUG))
+
+	cmd.AddCommand(app.NewVersionCmd())
 
 	return cmd
 }
