@@ -1,5 +1,9 @@
 # Neptune Apex Reverse Proxy Server
 
+[![go-doc](https://pkg.go.dev/badge/go.reefassistant.com/apex-proxy?status.svg)](https://pkg.go.dev/go.reefassistant.com/apex-proxy)
+[![Go Report Card](https://goreportcard.com/badge/go.reefassistant.com/apex-proxy)](https://goreportcard.com/report/go.reefassistant.com/apex-proxy)
+[![GitHub license](https://img.shields.io/github/license/reefassistant/apex-proxy)](https://github.com/reefassistant/apex-proxy/blob/main/LICENSE)
+
 This reverse proxy allows you to securely expose your Apex Controller JSON/XML endpoints to the
 Internet without allowing access to the UI.
 
